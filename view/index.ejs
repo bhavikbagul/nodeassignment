@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-1">#</div>
+                <div class="col-md-2">Name</div>
+                <div class="col-md-2">Birth Year</div>
+                <div class="col-md-2">Death Year</div>
+                <div class="col-md-3">Profession</div>
+                <div class="col-md-2">Titles</div>
+            </div>
+        </div>
+        <form>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-1"><input name="ncost" placeholder="ncost" value="<%= objFind.ncost%>"></div>
+                <div class="col-md-2"><input name="primaryName" placeholder="Name" value="<%= objFind.primaryName%>"></div>
+                <div class="col-md-2"><input name="birthYear" placeholder="Birth Year" value="<%= objFind.birthYear%>"></div>
+                <div class="col-md-2"><input name="deathYear" placeholder="Death Year" value="<%= objFind.deathYear%>"></div>
+                <div class="col-md-3"><input name="primaryProfession" placeholder="Profession" value="<%= objFind.primaryProfession%>"></div>
+                <div class="col-md-2"><input name="knownForTitles" placeholder="Titles" value="<%= objFind.knownForTitles%>">
+                    <button>Search</button></div>
+            </div>
+        </div>
+        </form>
+        <div class="row">    
+            <% for (var i = 0; i < data.length; i++) { %>
+                <div class="col-md-1">
+                <%= data[i].ncost %>                  
+                </div>
+                <div class="col-md-2">
+                <%= data[i].primaryName %>
+                    
+                </div>
+                <div class="col-md-2">
+                    <%= data[i].birthYear %>
+                </div>
+                <div class="col-md-2">
+                    <% if(data[i].deathYear!='\\N'){ %> <%= data[i].deathYear %> <% } %>
+                </div>
+                <div class="col-md-3">
+                    <%= data[i].primaryProfession %>
+                </div>
+                <div class="col-md-2">
+                    <%= data[i].knownForTitles %>
+                </div>
+            <% } %>
+        </div>
+        <% if(pageURL == '/') pageURL = '/?' %>
+            <% if (pages > 0) { %>
+                <ul class="pagination text-center">
+                    <% if (current == 1) { %>
+                        <li class="disabled"><a>First</a></li>
+                    <% } else { %>
+                        <li><a href="<%= pageURL %>&page=1">First</a></li>
+                    <% } %>
+                    <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                    <% if (i !== 1) { %>
+                        <li class="disabled"><a>...</a></li>
+                    <% } %>
+                    <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                        <% if (i == current) { %>
+                            <li class="active"><a><%= i %></a></li>
+                        <% } else { %>
+                            <li><a href="<%= pageURL %>&page=<%= i %>"><%= i %></a></li>
+                        <% } %>
+                        <% /*if (i == Number(current) + 4 && i < pages) { %>
+                            <li class="disabled"><a>...</a></li>
+                        <% }*/ %>
+                    <% } %>
+                    <% if (current == pages) { %>
+                        <li class="disabled"><a>Last</a></li>
+                    <% } /*else { %>
+                        <li><a href="<%= pageURL %>&page=<%= pages %>">Last</a></li>
+                    <% }*/ %>
+                </ul>
+            <% } %>
+    </div>
+    <script src="js/index.js"></script>
+</body>
+</html>
